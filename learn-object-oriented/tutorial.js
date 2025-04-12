@@ -1,13 +1,34 @@
-var Greeter = /** @class */ (function () {
-    function Greeter(message) {
-        this.greeting = message;
-        console.log("Greeterオブジェクトが作成されました！");
+var Animal = /** @class */ (function () {
+    function Animal(name, age, species) {
+        this.name = name;
+        this.age = age;
+        this.species = species;
     }
-    Greeter.prototype.greet = function () {
-        console.log(this.greeting);
+    Animal.prototype.displayInfo = function () {
+        console.log("Name: ".concat(this.name, ", Age: ").concat(this.age, ", Species: ").concat(this.species));
     };
-    return Greeter;
+    Animal.prototype.getAge = function () {
+        return this.age;
+    };
+    return Animal;
 }());
-var myGreeter = new Greeter("こんにちは、TypeScript！");
-myGreeter.greet();
-console.log(myGreeter.greeting);
+var leo = new Animal("Leo", 5, "Lion");
+console.log(leo.name);
+leo.displayInfo();
+//console.log(leo.age);
+console.log("Leo's age is: ".concat(leo.getAge()));
+//console.log(leo.species);
+var Plant = /** @class */ (function () {
+    function Plant(name, type) {
+        this.name = name;
+        this.type = type;
+    }
+    Plant.prototype.getType = function () {
+        return this.type;
+    };
+    return Plant;
+}());
+var rose = new Plant("Rose", "Flower");
+console.log(rose.name);
+console.log(rose.getType());
+// console.log(rose.type);
