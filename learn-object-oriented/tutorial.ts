@@ -1,18 +1,41 @@
-class Greeter {
-    greeting: string;
+class Animal {
+    public name: string;
+    private age: number;
+    protected species: string;
 
-    constructor(message: string) {
-        this.greeting = message;
-        console.log("Greeterオブジェクトが作成されました！");
+    constructor(name: string, age: number, species: string) {
+        this.name = name;
+        this.age = age;
+        this.species = species;
+    }
+    
+    public displayInfo(): void {
+        console.log(`Name: ${this.name}, Age: ${this.age}, Species: ${this.species}`);
     }
 
-    greet(): void {
-        console.log(this.greeting);
+    public getAge(): number {
+        return this.age;
+    }
+
+}
+
+const leo = new Animal("Leo", 5, "Lion");
+console.log(leo.name);
+leo.displayInfo();
+//console.log(leo.age);
+console.log(`Leo's age is: ${leo.getAge()}`);
+
+//console.log(leo.species);
+
+class Plant {
+    constructor(public name: string, private type: string) {}
+
+    public getType(): string {
+        return this.type;
     }
 }
 
-const myGreeter = new Greeter("こんにちは、TypeScript！");
-
-myGreeter.greet();
-
-console.log(myGreeter.greeting);
+const rose = new Plant("Rose", "Flower");
+console.log(rose.name);
+console.log(rose.getType());
+// console.log(rose.type);
