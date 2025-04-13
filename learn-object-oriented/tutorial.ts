@@ -1,9 +1,5 @@
 class Animal {
-    public name: string;
-    private age: number;
-    protected species: string;
-
-    constructor(name: string, age: number, species: string) {
+    constructor(public name: string, private age: number, protected species: string) {
         this.name = name;
         this.age = age;
         this.species = species;
@@ -39,3 +35,31 @@ const rose = new Plant("Rose", "Flower");
 console.log(rose.name);
 console.log(rose.getType());
 // console.log(rose.type);
+
+class Dog extends Animal {
+    public breed: string;
+
+    constructor(name: string, age: number, breed: string) {
+        super(name, age, "Canine");
+        this.breed = breed;
+        console.log(`Species set to: ${this.species}`)
+    }
+    
+    public bark(): void {
+        console.log(`${this.name} says Woof!`);
+    }
+
+    public displayInfo(): void {
+        super.displayInfo();
+        console.log(`Breed: ${this.breed}`);
+    }
+}
+
+const buddy = new Dog("Buddy", 3, "Golden Retriever");
+
+console.log(buddy.name);
+console.log(buddy.getAge());
+//console.log(buddy.species);
+console.log(buddy.breed);
+buddy.bark();
+buddy.displayInfo();
