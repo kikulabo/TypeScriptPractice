@@ -63,3 +63,37 @@ console.log(buddy.getAge());
 console.log(buddy.breed);
 buddy.bark();
 buddy.displayInfo();
+
+class Cat extends Animal {
+    constructor(name: string, age: number) {
+        super(name, age, "Feline");
+    }
+
+    public displayInfo(): void {
+        console.log(`Meow! I'm ${this.name}, a ${this.species}. Age: ${this.getAge()}`);
+    }
+
+    public purr(): void {
+        console.log(`${this.name} is purring...`);
+    }
+}
+
+const whiskers = new Cat("Whiskers", 2);
+
+const myPets: Animal[] = [];
+myPets.push(leo);
+myPets.push(buddy);
+myPets.push(whiskers);
+
+console.log("\n--- Pet Parade ---");
+
+myPets.forEach(pet => {
+    pet.displayInfo();
+    if (pet instanceof Dog) {
+        pet.bark(); // Dogインスタンスならbark()を呼ぶ
+    } else if (pet instanceof Cat) {
+        pet.purr(); // Catインスタンスならpurr()を呼ぶ
+    }
+    console.log("---");
+});
+

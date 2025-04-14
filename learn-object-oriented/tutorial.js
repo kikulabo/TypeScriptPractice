@@ -74,3 +74,32 @@ console.log(buddy.getAge());
 console.log(buddy.breed);
 buddy.bark();
 buddy.displayInfo();
+var Cat = /** @class */ (function (_super) {
+    __extends(Cat, _super);
+    function Cat(name, age) {
+        return _super.call(this, name, age, "Feline") || this;
+    }
+    Cat.prototype.displayInfo = function () {
+        console.log("Meow! I'm ".concat(this.name, ", a ").concat(this.species, ". Age: ").concat(this.getAge()));
+    };
+    Cat.prototype.purr = function () {
+        console.log("".concat(this.name, " is purring..."));
+    };
+    return Cat;
+}(Animal));
+var whiskers = new Cat("Whiskers", 2);
+var myPets = [];
+myPets.push(leo);
+myPets.push(buddy);
+myPets.push(whiskers);
+console.log("\n--- Pet Parade ---");
+myPets.forEach(function (pet) {
+    pet.displayInfo();
+    if (pet instanceof Dog) {
+        pet.bark(); // Dogインスタンスならbark()を呼ぶ
+    }
+    else if (pet instanceof Cat) {
+        pet.purr(); // Catインスタンスならpurr()を呼ぶ
+    }
+    console.log("---");
+});
