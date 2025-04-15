@@ -13,93 +13,54 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Animal = /** @class */ (function () {
-    function Animal(name, age, species) {
-        this.name = name;
-        this.age = age;
-        this.species = species;
-        this.name = name;
-        this.age = age;
-        this.species = species;
+var Shape = /** @class */ (function () {
+    function Shape(color) {
+        this.color = color;
     }
-    Animal.prototype.displayInfo = function () {
-        console.log("Name: ".concat(this.name, ", Age: ").concat(this.age, ", Species: ").concat(this.species));
+    Shape.prototype.displayColor = function () {
+        console.log("Color: ".concat(this.color));
     };
-    Animal.prototype.getAge = function () {
-        return this.age;
-    };
-    return Animal;
+    return Shape;
 }());
-var leo = new Animal("Leo", 5, "Lion");
-console.log(leo.name);
-leo.displayInfo();
-//console.log(leo.age);
-console.log("Leo's age is: ".concat(leo.getAge()));
-//console.log(leo.species);
-var Plant = /** @class */ (function () {
-    function Plant(name, type) {
-        this.name = name;
-        this.type = type;
-    }
-    Plant.prototype.getType = function () {
-        return this.type;
-    };
-    return Plant;
-}());
-var rose = new Plant("Rose", "Flower");
-console.log(rose.name);
-console.log(rose.getType());
-// console.log(rose.type);
-var Dog = /** @class */ (function (_super) {
-    __extends(Dog, _super);
-    function Dog(name, age, breed) {
-        var _this = _super.call(this, name, age, "Canine") || this;
-        _this.breed = breed;
-        console.log("Species set to: ".concat(_this.species));
+// const myShape = new Shape("Red");
+var Circle = /** @class */ (function (_super) {
+    __extends(Circle, _super);
+    function Circle(color, radius) {
+        var _this = _super.call(this, color) || this;
+        _this.radius = radius;
         return _this;
     }
-    Dog.prototype.bark = function () {
-        console.log("".concat(this.name, " says Woof!"));
+    Circle.prototype.calculateArea = function () {
+        return Math.PI * this.radius * this.radius;
     };
-    Dog.prototype.displayInfo = function () {
-        _super.prototype.displayInfo.call(this);
-        console.log("Breed: ".concat(this.breed));
+    Circle.prototype.displayInfo = function () {
+        this.displayColor();
+        console.log("Type: Circle, Radius: ".concat(this.radius, ", Area: ").concat(this.calculateArea().toFixed(2)));
     };
-    return Dog;
-}(Animal));
-var buddy = new Dog("Buddy", 3, "Golden Retriever");
-console.log(buddy.name);
-console.log(buddy.getAge());
-//console.log(buddy.species);
-console.log(buddy.breed);
-buddy.bark();
-buddy.displayInfo();
-var Cat = /** @class */ (function (_super) {
-    __extends(Cat, _super);
-    function Cat(name, age) {
-        return _super.call(this, name, age, "Feline") || this;
+    return Circle;
+}(Shape));
+var Rectangle = /** @class */ (function (_super) {
+    __extends(Rectangle, _super);
+    function Rectangle(color, width, height) {
+        var _this = _super.call(this, color) || this;
+        _this.width = width;
+        _this.height = height;
+        return _this;
     }
-    Cat.prototype.displayInfo = function () {
-        console.log("Meow! I'm ".concat(this.name, ", a ").concat(this.species, ". Age: ").concat(this.getAge()));
+    Rectangle.prototype.calculateArea = function () {
+        return this.width * this.height;
     };
-    Cat.prototype.purr = function () {
-        console.log("".concat(this.name, " is purring..."));
+    Rectangle.prototype.displayInfo = function () {
+        this.displayColor();
+        console.log("Type: Rectangle, Width: ".concat(this.width, ", Height: ").concat(this.height, ", Area: ").concat(this.calculateArea()));
     };
-    return Cat;
-}(Animal));
-var whiskers = new Cat("Whiskers", 2);
-var myPets = [];
-myPets.push(leo);
-myPets.push(buddy);
-myPets.push(whiskers);
-console.log("\n--- Pet Parade ---");
-myPets.forEach(function (pet) {
-    pet.displayInfo();
-    if (pet instanceof Dog) {
-        pet.bark(); // Dogインスタンスならbark()を呼ぶ
-    }
-    else if (pet instanceof Cat) {
-        pet.purr(); // Catインスタンスならpurr()を呼ぶ
-    }
+    return Rectangle;
+}(Shape));
+var redCircle = new Circle("Red", 5);
+var blueRectangle = new Rectangle("Blue", 10, 4);
+var shapes = [redCircle, blueRectangle];
+console.log("\n--- Shape Info ---");
+shapes.forEach(function (shape) {
+    shape.displayInfo();
     console.log("---");
 });
