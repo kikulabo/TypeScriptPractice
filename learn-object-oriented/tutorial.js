@@ -1,66 +1,38 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Shape = /** @class */ (function () {
-    function Shape(color) {
-        this.color = color;
+var ConsoleLogger = /** @class */ (function () {
+    function ConsoleLogger(prefix) {
+        this.logPrefix = prefix;
     }
-    Shape.prototype.displayColor = function () {
-        console.log("Color: ".concat(this.color));
+    ConsoleLogger.prototype.log = function (message) {
+        console.log("".concat(this.logPrefix, " ").concat(message));
     };
-    return Shape;
+    ConsoleLogger.prototype.serialize = function () {
+        return JSON.stringify({ prefix: this.logPrefix });
+    };
+    return ConsoleLogger;
 }());
-// const myShape = new Shape("Red");
-var Circle = /** @class */ (function (_super) {
-    __extends(Circle, _super);
-    function Circle(color, radius) {
-        var _this = _super.call(this, color) || this;
-        _this.radius = radius;
-        return _this;
+var User = /** @class */ (function () {
+    function User(name, userId) {
+        this.name = name;
+        this.userId = userId;
+        this.logPrefix = 'User';
     }
-    Circle.prototype.calculateArea = function () {
-        return Math.PI * this.radius * this.radius;
+    User.prototype.log = function (message) {
+        console.log("".concat(this.logPrefix, " [").concat(this.userId, "] ").concat(this.name, ": ").concat(message));
     };
-    Circle.prototype.displayInfo = function () {
-        this.displayColor();
-        console.log("Type: Circle, Radius: ".concat(this.radius, ", Area: ").concat(this.calculateArea().toFixed(2)));
-    };
-    return Circle;
-}(Shape));
-var Rectangle = /** @class */ (function (_super) {
-    __extends(Rectangle, _super);
-    function Rectangle(color, width, height) {
-        var _this = _super.call(this, color) || this;
-        _this.width = width;
-        _this.height = height;
-        return _this;
-    }
-    Rectangle.prototype.calculateArea = function () {
-        return this.width * this.height;
-    };
-    Rectangle.prototype.displayInfo = function () {
-        this.displayColor();
-        console.log("Type: Rectangle, Width: ".concat(this.width, ", Height: ").concat(this.height, ", Area: ").concat(this.calculateArea()));
-    };
-    return Rectangle;
-}(Shape));
-var redCircle = new Circle("Red", 5);
-var blueRectangle = new Rectangle("Blue", 10, 4);
-var shapes = [redCircle, blueRectangle];
-console.log("\n--- Shape Info ---");
-shapes.forEach(function (shape) {
-    shape.displayInfo();
-    console.log("---");
-});
+    return User;
+}());
+var logger = new ConsoleLogger("INFO");
+logger.log("Application started.");
+console.log(logger.serialize());
+var user = new User("Alice", 123);
+user.log("Logged in.");
+function processLog(item) {
+    item.log("Processing item...");
+}
+processLog(logger);
+processLog(user);
+var simpleLog = {
+    logPrefix: "DEBUG",
+    log: function (msg) { return console.log("[".concat(simpleLog.logPrefix, "] ").concat(msg)); }
+};
+processLog(simpleLog);
