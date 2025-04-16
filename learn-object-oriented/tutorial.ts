@@ -1,58 +1,58 @@
-abstract class Shape {
-    constructor(public color: string) {}
+interface Loggable {
+    logPrefix: string;
 
-    public displayColor(): void {
-        console.log(`Color: ${this.color}`);
-    }
-
-    abstract calculateArea(): number;
-    abstract displayInfo(): void;
+    log(message: string): void;
 }
 
-// const myShape = new Shape("Red");
+interface Serializable {
+    serialize(): string;
+}
 
-class Circle extends Shape {
-    constructor(color: string, public radius: number) {
-        super(color);
+class ConsoleLogger implements Loggable, Serializable {
+    logPrefix: string;
+    
+    constructor(prefix: string) {
+        this.logPrefix = prefix;
+    }
+
+    log(message: string): void {
+        console.log(`${this.logPrefix} ${message}`);
     }
     
-    calculateArea(): number {
-        return Math.PI * this.radius * this.radius;
-    }
-
-    displayInfo(): void {
-        this.displayColor();
-        console.log(`Type: Circle, Radius: ${this.radius}, Area: ${this.calculateArea().toFixed(2)}`);
-    }
-
-}
-
-class Rectangle extends Shape {
-    constructor(color: string, public width: number, public height: number) {
-        super(color);
-    }
-
-    calculateArea(): number {
-        return this.width * this.height;
-    }
-
-    displayInfo(): void {
-        this.displayColor();
-        console.log(`Type: Rectangle, Width: ${this.width}, Height: ${this.height}, Area: ${this.calculateArea()}`);
+    serialize(): string {
+        return JSON.stringify({ prefix: this.logPrefix });
     }
 }
 
-const redCircle = new Circle("Red", 5);
-const blueRectangle = new Rectangle("Blue", 10, 4);
+class User implements Loggable {
+    constructor(public name: string, public userId: number) {} 
 
-const shapes: Shape[] = [redCircle, blueRectangle];
+    logPrefix: string = 'User';
 
-console.log("\n--- Shape Info ---");
+    log(message: string): void {
+        console.log(`${this.logPrefix} [${this.userId}] ${this.name}: ${message}`);
+    }
+}
 
-shapes.forEach(shape => {
-    shape.displayInfo();
-    console.log("---");
-});
+const logger = new ConsoleLogger("INFO");
+logger.log("Application started.");
+console.log(logger.serialize());
 
+const user = new User("Alice", 123);
+user.log("Logged in.");
+
+function processLog(item: Loggable): void {
+    item.log("Processing item...");
+}
+
+processLog(logger);
+processLog(user);
+
+const simpleLog = {
+    logPrefix: "DEBUG",
+    log: (msg) => console.log(`[${simpleLog.logPrefix}] ${msg}`)
+}
+
+processLog(simpleLog);
 
 
