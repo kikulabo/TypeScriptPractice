@@ -1,46 +1,18 @@
-import { Stack, StackProps, RemovalPolicy, CfnOutput } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-import * as s3 from 'aws-cdk-lib/aws-s3';
-import { MySecureBucket } from './my-custom-constructs';
+#!/usr/bin/env node
+import 'source-map-support/register';
+import * as cdk from 'aws-cdk-lib';
+import { NetworkStack } from '../lib/network-stack';
+import { ApplicationStack } from '../lib/application-stack';
 
-export class AdvancedCdkAppStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
-    super(scope, id, props);
+const app = new cdk.App();
 
-    const l2Bucket = new s3.Bucket(this, 'MyL2Bucket', {
-      versioned: true,
-      removalPolicy: RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
-    });
+const networkStack = new NetworkStack(app, 'NetworkStack', {
+  env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION }
+});
 
-    const l1Bucket = new s3.CfnBucket(this, 'MyL1Bucket', {
-      bucketName: `my-l1-bucket-${this.account}-${this.region}`,
-      tags: [{ key: 'ConstructLevel', value: 'L1' }],
-      versioningConfiguration: {
-        status: 'Enabled',
-      }
-    });
+new ApplicationStack(app, 'ApplicationStack', {
+  vpc: networkStack.vpc,
+  env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION }
+});
 
-    new CfnOutput(this, 'L1BucketNameOutput', {
-      value: l1Bucket.ref,
-      description: 'Name of the L1 S3 bucket',
-    });
-
-    new CfnOutput(this, 'L2BucketNameOutput', {
-      value: l2Bucket.bucketName,
-      description: 'Name of the L2 S3 bucket',
-    });
-
-    const secureBucket = new MySecureBucket(this, 'MyL3SecureBucket', {
-      customTagName: 'FinanceData',
-      removalPolicy: RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
-    });
-
-    new CfnOutput(this, 'L3BucketNameOutput', {
-      value: secureBucket.bucket.bucketName,
-      description: 'Name of the L3 secure S3 bucket',
-    });
-
-  }
-}
+cdk.Tags.of(app).add('App', 'AdvancedCdkApp');
