@@ -86,6 +86,17 @@
     "@aws-cdk/aws-lambda:createNewPoliciesWithAddToRolePolicy": false,
     "@aws-cdk/aws-s3:setUniqueReplicationRoleName": true,
     "@aws-cdk/aws-events:requireEventBusPolicySid": true,
-    "@aws-cdk/aws-dynamodb:retainTableReplica": true
+    "@aws-cdk/aws-dynamodb:retainTableReplica": true,
+    "@aws-cdk/aws-s3:autoDeleteObjects": true,
+    "dev": {
+      "envName": "dev",
+      "natGateways": 1,
+      "bucketPrefix": "dev-"
+    },
+    "prd": {
+      "envName": "prd",
+      "natGateways": 2,
+      "bucketPrefix": "prd-"
+    }
   }
 }
