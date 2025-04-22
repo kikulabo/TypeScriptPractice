@@ -6,11 +6,14 @@ import { MySecureBucket } from './my-custom-constructs';
 
 export interface ApplicationStackProps extends StackProps {
     vpc: ec2.IVpc;
+    bucketPrefix: string;
 }
 
 export class ApplicationStack extends Stack {
     constructor(scope: Construct, id: string, props: ApplicationStackProps) {
         super(scope, id, props);
+        const prefix = props.bucketPrefix;
+
         const l2Bucket = new s3.Bucket(this, 'MyL2Bucket', {
             versioned: true,
             removalPolicy: RemovalPolicy.DESTROY,
@@ -20,7 +23,7 @@ export class ApplicationStack extends Stack {
         new CfnOutput(this, 'VpcIdOutput', { value: props.vpc.vpcId });
 
         const l1Bucket = new s3.CfnBucket(this, 'MyL1Bucket', {
-            bucketName: `my-l1-bucket-${this.account}-${this.region}`,
+            bucketName: `${prefix}my-l1-bucket-${this.account}-${this.region}`,
             tags: [{ key: 'ConstructLevel', value: 'L1' }],
             versioningConfiguration: { status: 'Enabled' },
          });
