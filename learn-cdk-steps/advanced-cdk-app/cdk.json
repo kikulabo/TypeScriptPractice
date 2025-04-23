@@ -91,12 +91,16 @@
     "dev": {
       "envName": "dev",
       "natGateways": 1,
-      "bucketPrefix": "dev-"
+      "bucketPrefix": "dev-",
+      "account": "111111111111",
+      "region": "us-east-1"
     },
     "prd": {
       "envName": "prd",
       "natGateways": 2,
-      "bucketPrefix": "prd-"
+      "bucketPrefix": "prd-",
+      "account": "999999999999",
+      "region": "ap-northeast-1"
     }
   }
 }
