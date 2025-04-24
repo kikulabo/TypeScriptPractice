@@ -9,7 +9,7 @@ export interface NetworkStackProps extends StackProps {
 export class NetworkStack extends Stack {
   public readonly vpc: ec2.Vpc;
 
-    constructor(scope: Construct, id: string, props?: NetworkStackProps) {
+    constructor(scope: Construct, id: string, props: NetworkStackProps) {
         super(scope, id, props);
         this.vpc = new ec2.Vpc(this, 'MyVpc', {
             maxAzs: 2,
