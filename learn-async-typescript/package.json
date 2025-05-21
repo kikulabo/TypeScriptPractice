@@ -1,0 +1,19 @@
+{
+  "name": "learn-async-typescript",
+  "version": "1.0.0",
+  "description": "TypeScriptの非同期処理を学ぶためのチュートリアル",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["typescript", "async", "tutorial"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+} 
