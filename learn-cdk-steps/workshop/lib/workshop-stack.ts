@@ -1,19 +1,13 @@
-import { Duration, Stack, StackProps } from 'aws-cdk-lib';
-import * as sns from 'aws-cdk-lib/aws-sns';
-import * as subs from 'aws-cdk-lib/aws-sns-subscriptions';
-import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
 
 export class WorkshopStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const queue = new sqs.Queue(this, 'WorkshopQueue', {
-      visibilityTimeout: Duration.seconds(300)
+    const vpc = new ec2.Vpc(this, 'VPC', {
+      ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
     });
-
-    const topic = new sns.Topic(this, 'WorkshopTopic');
-
-    topic.addSubscription(new subs.SqsSubscription(queue));
   }
 }
