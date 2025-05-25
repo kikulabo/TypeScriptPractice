@@ -1,6 +1,7 @@
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import { readFileSync } from "fs";
 
 export class WorkshopStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -16,7 +17,9 @@ export class WorkshopStack extends Stack {
       machineImage: new ec2.AmazonLinuxImage({
         generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
       }),
+      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
     });
-
+    const script = readFileSync("./lib/resources/user-data.sh", "utf8");
+    webServer1.addUserData(script);
   }
 }
