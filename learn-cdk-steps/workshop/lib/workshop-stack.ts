@@ -1,4 +1,4 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { Stack, StackProps, CfnOutput } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { readFileSync } from "fs";
@@ -21,5 +21,11 @@ export class WorkshopStack extends Stack {
     });
     const script = readFileSync("./lib/resources/user-data.sh", "utf8");
     webServer1.addUserData(script);
+
+    webServer1.connections.allowFromAnyIpv4(ec2.Port.tcp(80));
+
+    new CfnOutput(this, "WordpressServer1PublicIPAddress", {
+      value: `http://${webServer1.instancePublicIp}`,
+    });
   }
 }
