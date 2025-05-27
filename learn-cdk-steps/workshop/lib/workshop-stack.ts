@@ -3,6 +3,8 @@ import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { readFileSync } from "fs";
 
+import * as rds from "aws-cdk-lib/aws-rds";
+
 export class WorkshopStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -26,6 +28,12 @@ export class WorkshopStack extends Stack {
 
     new CfnOutput(this, "WordpressServer1PublicIPAddress", {
       value: `http://${webServer1.instancePublicIp}`,
+    });
+
+    const dbServer = new rds.DatabaseInstance(this, "WordPressDB", {
+      vpc,
+      // DatabaseInstanceEngine クラスを利用してデータベースエンジンを設定
+      engine: rds.DatabaseInstanceEngine.mysql({ version: rds.MysqlEngineVersion.VER_8_0_36 }),
     });
   }
 }
