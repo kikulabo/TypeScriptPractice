@@ -32,8 +32,11 @@ export class WorkshopStack extends Stack {
 
     const dbServer = new rds.DatabaseInstance(this, "WordPressDB", {
       vpc,
-      // DatabaseInstanceEngine クラスを利用してデータベースエンジンを設定
       engine: rds.DatabaseInstanceEngine.mysql({ version: rds.MysqlEngineVersion.VER_8_0_36 }),
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.SMALL),
+      databaseName: "wordpress",
     });
+
+    dbServer.connections.allowDefaultPortFrom(webServer1);
   }
 }
