@@ -28,6 +28,7 @@ export class CdkWorkshopStack extends Stack {
       engine: rds.DatabaseInstanceEngine.mysql({ version: rds.MysqlEngineVersion.VER_8_0_36 }),
       instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.SMALL),
       databaseName: "wordpress",
+      multiAz: true,
     });
 
     dbServer.connections.allowDefaultPortFrom(webServer1.instance);
