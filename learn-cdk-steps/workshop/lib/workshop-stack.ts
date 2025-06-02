@@ -4,6 +4,9 @@ import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as rds from "aws-cdk-lib/aws-rds";
 import * as elbv2 from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import * as targets from "aws-cdk-lib/aws-elasticloadbalancingv2-targets";
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
+import * as cdk from 'aws-cdk-lib';
 
 import { WebServerInstance } from './constructs/web-server-instance';
 
@@ -52,5 +55,21 @@ export class CdkWorkshopStack extends Stack {
 
     webServer1.instance.connections.allowFrom(alb, ec2.Port.tcp(80));
     webServer2.instance.connections.allowFrom(alb, ec2.Port.tcp(80));
+
+    const distribution = new cloudfront.Distribution(this, 'Distribution', {
+      defaultBehavior: {
+        origin: new origins.LoadBalancerV2Origin(alb),
+        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+        cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+      },
+      priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
+      enabled: true,
+    });
+
+    new cdk.CfnOutput(this, 'DistributionDomainName', {
+      value: distribution.distributionDomainName,
+      description: 'CloudFront Distribution Domain Name',
+    });
   }
 }
