@@ -7,4 +7,15 @@ export class Chapter4Stack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
     }
+    const lambdaFunction = new NodejsFunction(this,'SampleLambda', {
+        entry:'src/index.ts',
+        handler: 'handler',
+        runtime: Runtime.NODEJS_LATEST,
+    });
+    const functionUrl = lambdaFunction.addFunctionUrl({
+        authType: FunctionUrlAuthType.NONE,
+    });
+    new cdk.CfnOutput(this,'SampleFunctionUrl', {
+        value: functionUrl.url,
+    });
 }
