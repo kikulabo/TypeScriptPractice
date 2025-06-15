@@ -1,17 +1,11 @@
-import { createInterface } from 'readline';
+const obj1 = {
+    bar: 456,
+    baz: 789
+};
 
-const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+const obj2 = {
+    foo: 123,
+    ...obj1
+};
 
-const messages = {
-    good: "0以上の数値が入力されました！",
-    bad: "負の数値を入力しないでください！"
-}
-
-rl.question('数値を入力してください:', (line) => {
-    const num = Number(line);
-    console.log(messages[num >= 0 ? "good" : "bad"]);
-    rl.close();
-});
+console.log(obj2);
