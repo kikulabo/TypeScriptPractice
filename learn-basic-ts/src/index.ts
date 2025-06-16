@@ -1,11 +1,11 @@
-const obj1 = {
-    bar: 456,
-    baz: 789
+interface FooBarObj {
+    foo: number;
+    bar: string;
+}
+
+const obj: FooBarObj = {
+    foo: 0,
+    bar: "string"
 };
 
-const obj2 = {
-    foo: 123,
-    ...obj1
-};
-
-console.log(obj2);
+console.log(obj);
