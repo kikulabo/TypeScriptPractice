@@ -1,11 +1,7 @@
-interface FooBarObj {
-    foo: number;
-    bar: string;
+type MyObj = {
+    foo: boolean;
+    bar: boolean;
+    baz?: number;
 }
-
-const obj: FooBarObj = {
-    foo: 0,
-    bar: "string"
-};
-
-console.log(obj);
+const obj: MyObj = { foo: false, bar: true };
+const obj2: MyObj = { foo: true, bar: false, baz: 1234 };
