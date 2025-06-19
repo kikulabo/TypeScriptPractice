@@ -1,15 +1,9 @@
-type FooBar = {
-    foo: string;
-    bar: number;
+class User {
+    name: string = "";
+    age: number = 0;
 }
-type FooBarBaz = {
-    foo: string;
-    bar: number;
-    baz: boolean;
-}
-const obj: FooBarBaz = {
-    foo: "hi",
-    bar: 1,
-    baz: false
-};
-const obj2: FooBar = obj;
+const uhyo = new User();
+console.log(uhyo.name);
+console.log(uhyo.age);
+uhyo.age = 26;
+console.log(uhyo.age);
