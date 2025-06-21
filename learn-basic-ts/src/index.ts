@@ -4,5 +4,5 @@ class User {
     }
 const uhyo = new User();
 console.log(uhyo.name);
-uhyo.name = "うひょ";
+uhyo.name = "今日は1日忙しかった";
 console.log(uhyo.name); 
