@@ -1,8 +1,15 @@
 class User {
-    name?: string;
+    name: string = "";
     age: number = 0;
+    isAdult(): boolean {
+        return this.age >= 20;
     }
+    setAge(newAge: number) {
+        this.age = newAge;
+    }
+}
+
 const uhyo = new User();
-console.log(uhyo.name);
-uhyo.name = "今日は1日忙しかった";
-console.log(uhyo.name); 
+console.log(uhyo.isAdult());
+uhyo.setAge(26);
+console.log(uhyo.isAdult());
