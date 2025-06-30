@@ -1,18 +1,17 @@
-class User {
-    static adminUser: User;
-    static {
-        this.adminUser = new User();
-        this.adminUser.#age = 9999;
-    }
-    #age: number = 0;
-    getAge() {
-        return this.#age;
-    }
-    setAge(age: number) {
-        if (age < 0 || age > 150) {
-            return;
-        }
+class User<T> {
+    name: string;
+    #age: number;
+    readonly data: T;
+    constructor(name: string, age: number, data: T) {
+        this.name = name;
         this.#age = age;
+        this.data = data;
+    }
+    public isAdult(): boolean {
+        return this.#age >= 20;
     }
 }
-console.log(User.adminUser.getAge());
+const uhyo = new User<string>("uhyo", 26, "追加データ");
+const data = uhyo.data;
+const john = new User("John Smith", 15, { num: 123 })
+const data2 = john.data;
