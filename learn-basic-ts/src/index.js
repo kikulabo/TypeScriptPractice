@@ -1,16 +1,11 @@
-type HasAge = {
-    age: number;
-}
-
-class User {
-    name: string;
-    age: number;
-    constructor(name: string, age: number) {
+var User = /** @class */ (function () {
+    function User(name, age) {
         this.name = name;
         this.age = age;
     }
-}
-function getPrice(customer: HasAge) {
+    return User;
+}());
+function getPrice(customer) {
     if (customer instanceof User) {
         if (customer.name === "uhyo") {
             return 0;
@@ -18,10 +13,9 @@ function getPrice(customer: HasAge) {
     }
     return customer.age < 18 ? 1000 : 1800;
 }
-
-const customer1: HasAge = { age: 15 };
-const customer2: HasAge = { age: 40 };
-const uhyo = new User("uhyo", 26);
+var customer1 = { age: 15 };
+var customer2 = { age: 40 };
+var uhyo = new User("uhyo", 26);
 console.log(getPrice(customer1));
 console.log(getPrice(customer2));
 console.log(getPrice(uhyo));
