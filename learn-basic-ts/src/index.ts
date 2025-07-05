@@ -11,10 +11,13 @@ class User {
 }
 
 class PremiumUser extends User {
-    rank: number = 1;
+    rank: number;
+    constructor(name: string, age: number, rank: number) {
+        super(name, age);
+        this.rank = rank;
+    }
 }
 
-const uhyo = new PremiumUser("uhyo", 26);
-console.log(uhyo.rank);
+const uhyo = new PremiumUser("uhyo", 26, 3);
 console.log(uhyo.name);
-console.log(uhyo.isAdult()); 
+console.log(uhyo.rank);
