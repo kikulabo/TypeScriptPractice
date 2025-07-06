@@ -11,13 +11,8 @@ class User {
 }
 
 class PremiumUser extends User {
-    rank: number;
-    constructor(name: string, age: number, rank: number) {
-        super(name, age);
-        this.rank = rank;
+    rank: number = 1;
+    public override isAdult(): boolean {
+        return true;
     }
 }
-
-const uhyo = new PremiumUser("uhyo", 26, 3);
-console.log(uhyo.name);
-console.log(uhyo.rank);
