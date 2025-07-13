@@ -1,21 +1,23 @@
-type Human = {
-    height: number;
-    weight: number;
-};
-const calcBMI = function({ height, weight }: Human): number {
-    return weight / height ** 2;
-};
-const uhyo: Human = { height: 1.84, weight: 72 };
-console.log(calcBMI(uhyo));
+class User {
+    name: string;
+    #age: number;
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.#age = age;
+    }
 
-const calcBMI_new = ({
-    height, weight
-}: Human): number => {
-    return weight / height ** 2;
-};
-const uhyo_new: Human = { height: 1.84, weight: 72 };
-console.log(calcBMI_new(uhyo_new));
+    public isAdult(): boolean {
+        return this.#age >= 20;
+    }
 
-const calcBMI_short = ({
-    height, weight
-}: Human): number => weight / height ** 2;
+    public filterOlder(users: readonly User[]): User[] {
+        return users.filter(u => u.#age > this.#age);
+        }
+}
+
+const uhyo = new User("uhyo", 25);
+const john = new User("John Smith", 15);
+const bob = new User("Bob", 40);
+const older = uhyo.filterOlder([john, bob]);
+
+console.log(older);
