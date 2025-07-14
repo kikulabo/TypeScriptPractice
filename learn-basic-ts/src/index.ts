@@ -5,19 +5,11 @@ class User {
         this.name = name;
         this.#age = age;
     }
-
     public isAdult(): boolean {
         return this.#age >= 20;
     }
-
-    public filterOlder(users: readonly User[]): User[] {
-        return users.filter(u => u.#age > this.#age);
-        }
 }
-
 const uhyo = new User("uhyo", 25);
 const john = new User("John Smith", 15);
-const bob = new User("Bob", 40);
-const older = uhyo.filterOlder([john, bob]);
-
-console.log(older);
+console.log(uhyo.isAdult());
+console.log(uhyo.isAdult.apply(john, []));
