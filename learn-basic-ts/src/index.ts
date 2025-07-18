@@ -1,9 +1,7 @@
 class A {
-    foo = 123;
-    bar = this.foo + 100;
-    getFoo() {
-        return this.foo;
+    static foo = 123;
+    static bar = this.foo * 2;
+    static {
+        console.log("bar is", this.bar);
     }
 }
-const obj = new A();
-console.log(obj.bar, obj.getFoo());
