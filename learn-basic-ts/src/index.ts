@@ -1,7 +1,6 @@
-class A {
-    static foo = 123;
-    static bar = this.foo * 2;
-    static {
-        console.log("bar is", this.bar);
+function getAverage(nums: number[]) {
+    if (nums.length === 0) {
+        throw new Error("配列が空です");
     }
+    return sum(nums) / nums.length;
 }
