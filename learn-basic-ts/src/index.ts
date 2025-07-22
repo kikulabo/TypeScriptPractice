@@ -1,13 +1,13 @@
-try {
-    console.log("エラーを発生させます");
-    throwError();
-    console.log("エラーを発生させました");
-} catch (err) {
-    console.log("エラーをキャッチしました");
-    console.log(err);
-}
-console.log("おわり");
-function throwError() {
-    const error = new Error("エラーが発生しました！！！！！");
-    throw error;
+console.log(sum(100));
+
+function sum(max: number): number {
+  try {
+    let result = 0;
+    for (let i = 1; i <= max; i++) {
+      result += i;
+    }
+    return result;
+  } finally {
+    console.log("sumから脱出します！！！！");
+  }
 }
