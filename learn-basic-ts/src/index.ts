@@ -1,15 +1,14 @@
 class User {
-    readonly name: string;
-    readonly age: number;
+    readonly #name: string;
+    readonly #age: number;
     constructor(name: string, age: number) {
         if (name === "") {
             throw new Error("名前は空にできません！");
         }
-        this.name = name;
-        this.age = age;
+        this.#name = name;
+        this.#age = age;
     }
-
     getMessage(message: string): string {
-        return `${this.name} (${this.age}) 「${message}」`;
+        return `${this.#name} (${this.#age}) 「${message}」`;
     }
 }
