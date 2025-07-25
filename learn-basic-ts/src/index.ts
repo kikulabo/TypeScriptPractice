@@ -1,14 +1,15 @@
-class User {
-    readonly #name: string;
-    readonly #age: number;
-    constructor(name: string, age: number) {
-        if (name === "") {
-            throw new Error("名前は空にできません！");
-        }
-        this.#name = name;
-        this.#age = age;
-    }
-    getMessage(message: string): string {
-        return `${this.#name} (${this.#age}) 「${message}」`;
-    }
+type Animal = {
+    species: string;
+};
+type Human = {
+    name: string;
 }
+type User = Animal | Human;
+
+const tama: User = {
+    species: "Felis silvestris catus"
+}
+
+const uhyo: User = {
+    name: "uhyo"
+};
