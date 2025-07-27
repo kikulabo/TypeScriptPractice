@@ -1,17 +1,17 @@
 type Animal = {
     species: string;
-    age: string;
-};
-type Human = {
-    name: string;
     age: number;
 }
-type User = Animal | Human;
-const tama: User = {
-    species: "Felis silvestris catus",
-    age: "永遠の17歳"
+type Human = Animal & {
+    name: string;
 }
-const uhyo: User = {
-    name: "uhyo",
-    age: 26
+const tama: Animal = {
+    species: "Felis silvestris catus",
+    age: 3
 };
+const uhyo: Human = {
+    species: "Homo sapiens sapiens",
+    age: 26,
+    name: "uhyo"
+};
+
