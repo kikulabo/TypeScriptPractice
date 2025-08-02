@@ -1,16 +1,9 @@
 type Human = {
     name: string;
-    age: number ¦ undefined;
+    age: number;
 };
-const uhyo: Human = {
-    name: "uhyo",
-    age: 25
-};
-const john: Human = {
-    name: "John Smith",
-    age: undefined
-};
-const taro: Human = {
-    name: "Taro Yamada",
-    age: undefined
-};
+
+function useMaybeHuman(human: Human | undefined) {
+    const age = human?.age;
+    console.log(age);
+}
