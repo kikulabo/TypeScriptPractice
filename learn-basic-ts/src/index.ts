@@ -1,4 +1,8 @@
-type GetTimeFunc = () => Date;
-function useTime(getTimeFunc: GetTimeFunc | undefined) {
-    const timeOrUndefined = getTimeFunc?.();
+type User = {
+    isAdult(): boolean;
+}
+function checkForAdultUser(user: User | null) {
+    if (user?.isAdult()) {
+        showSpecialContents(user);
+    }
 }
