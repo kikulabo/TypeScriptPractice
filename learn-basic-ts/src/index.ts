@@ -1,8 +1,5 @@
-type User = {
-    isAdult(): boolean;
-}
-function checkForAdultUser(user: User | null) {
-    if (user?.isAdult()) {
-        showSpecialContents(user);
-    }
-}
+type FooString = "foo";
+
+const foo: FooString = "foo";
+
+const bar: FooString = "bar";
