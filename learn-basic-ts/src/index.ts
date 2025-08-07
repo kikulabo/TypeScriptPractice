@@ -1,9 +1,9 @@
 function getHelloStr(): `Hello, ${string}!` {
     const rand = Math.random();
     if (rand < 0.3) {
-        return "Hello, world!";
+        return "久しぶりの登壇!";
     } else if (rand < 0.6) {
-        return "Hello, my world!";
+        return "お疲れ様でした!";
     } else if (rand < 0.9) {
         return "Hello, world!";
     } else {
