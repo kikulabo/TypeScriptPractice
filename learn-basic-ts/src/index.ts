@@ -1,4 +1,5 @@
-function makeKey<T extends string>(userName: T) {
-    return `user:${userName}` as const;
+function fromKey<T extends string>(key: `user:${T}`): T {
+	return key.slice(5) as T;
 }
-const uhyoKey: "user:uhyo" = makeKey("uhyo");
+const user = fromKey("user:uhyo");
+
