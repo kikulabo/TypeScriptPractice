@@ -1,31 +1,19 @@
-type Animal = {
-	tag: "animal";
-	species: string;
-}
 type Human = {
-	tag: "human";
+	type: "human";
 	name: string;
-}
-type Robot = {
-	tag: "robot";
-	name: string;
-}
-
-type User = Animal | Human | Robot;
-
-function getUserName1(user: User): string {
-	if (user.tag === "human") {
-		return user.name;
-	} else {
-		return "名無し";
-	}
+	age: number;
+};
+function setAge(human: Human, age: Human["age"]) {
+	return {
+		...human,
+		age
+	};
 }
 
-function getUserName2(user: User): string {
-switch (user.tag) {
-	case "human":
-		return user.name;
-	case "animal":
-		return "名無し";
-	}
-}
+const uhyo: Human = {
+	type: "human",
+	name: "uhyo",
+	age: 26,
+};
+const uhyo2 = setAge(uhyo, 27);
+console.log(uhyo2);
